@@ -16,10 +16,11 @@ import api from '../../services/api';
 export default function Categories({ navigation }) {
 
   const [categories, setCategories] = useState([])
-
-  useEffect(() =>{
-    api.get('api/categorias/get').then((response)=>{
-      setCategories(response.data)
+  useEffect(() => {
+    fetch("http://api.ifome.net/api/categorias/get")
+    .then( res => res.json())
+    .then((data) =>{
+      setCategories(data)
     })
   }, [])
 
