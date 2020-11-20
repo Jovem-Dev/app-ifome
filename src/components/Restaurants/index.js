@@ -23,13 +23,14 @@ import api from '../../services/api';
 
 export default function Restaurants({ title, display }) {
   const [restaurants, setRestaurants] = useState([]);
-
-  useEffect(() =>{
-    api.get('api/restaurantes/get').then((response)=>{
-      setRestaurants(response.data)
+  // https://api.ifome.net/api/restaurantes/get
+  useEffect(() => {
+    fetch("https://api.ifome.net/api/restaurantes/get")
+    .then( res => res.json())
+    .then((data) =>{
+      setRestaurants(data)
     })
   }, [])
-
   return (
     <Container>
       <Header display={display}>
