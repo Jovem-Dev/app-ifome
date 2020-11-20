@@ -56,13 +56,13 @@ export default function Item({ navigation }) {
   }, [])
 
   const cartoesMap = cartoes.map((item) => {
-    return item.card_holder_name + ":" + item.card_number + ", Expira em: " + item.card_expiration_date + ", CVV: " + item.card_cvv
+    return item.card_holder_name + ":" + item.card_number  
 
   })
 
 
   const enderecosMap = enderecos.map((item) => {
-    return "Bairro: " + item.bairro + ", Rua: " + item.rua + ", Número: " + item.numero
+    return  item.bairro + " / "+ item.rua + " / "+ item.numero
   })
 
   const item = navigation.getParam('item');
@@ -91,7 +91,7 @@ export default function Item({ navigation }) {
 
   ///// pedido
   const submitPurcharse = () => {
-    
+
 
     api.post('api/insert', {
       url: url,
@@ -134,12 +134,12 @@ export default function Item({ navigation }) {
       <View style={{ flex: 1 }}>
 
         <Modal isVisible={isModalVisible}>
-          <View style={{ flex: 1 }}>
-            <Text>Deseja Confirmar o Pedido?</Text>
+          <View style={styles.view_modal}>
+            <Text style={styles.texto_confirmacao}>Deseja Confirmar o Pedido?</Text>
             <Options horizontal>
 
               <Option>
-                <MaterialIcons name="credit-card" size={35} color="#999" />
+                <MaterialIcons name="credit-card" size={35} color="red" />
                 <MessageItem>Selecione a forma de pagamento</MessageItem>
                 <Picker
                   selectedValue={selectedValueCartao}
@@ -157,7 +157,7 @@ export default function Item({ navigation }) {
 
               <Option>
 
-                <MaterialCommunityIcons name="map-marker" size={35} color="#999" />
+                <MaterialCommunityIcons name="map-marker" size={35} color="red" />
                 <MessageItem>Selecione o endereço</MessageItem>
                 <Picker
                   selectedValue={selectedValueEndereco}
@@ -172,9 +172,14 @@ export default function Item({ navigation }) {
               </Option>
 
             </Options>
-
-            <Button title="Fechar" onPress={toggleModal} />
-            <Button title="Confirmar" onPress={submitPurcharse} />
+            <View style={{ flexDirection: 'row', marginBottom: 20}}>
+              <View style={styles.view_botao_confirma}>
+                <Button color="#F00000" title="Confirmar" onPress={submitPurcharse} />
+              </View>
+              <View style={styles.view_botao_cancelar}>
+                <Button style={styles.botao_cancelar} color="gray" title="Fechar" onPress={toggleModal} />
+              </View>
+            </View>
           </View>
         </Modal>
       </View>
@@ -236,7 +241,7 @@ export default function Item({ navigation }) {
           <DrinkPrice>+ R$ 10,00</DrinkPrice>
         </LeftHeader>
         <MaterialIcons name="add" size={22} color="#000" />
-      </DrinkItem> 
+      </DrinkItem>
 
       <Details>
         <Button title="Fazer Pedido" color="#F00000" onPress={toggleModal}>
@@ -255,6 +260,27 @@ const styles = StyleSheet.create({
     borderColor: "#eee",
     height: 50,
     width: 460
+  },
+  texto_confirmacao: {
+    textAlign: 'center',
+    fontSize: 18,
+    fontWeight: "bold",
+    color: 'black',
+    marginTop: 20
+  },
+  view_modal: {
+    backgroundColor: 'white',
+    borderRadius: 8
+  },
+  view_botao_confirma: {
+    flex: 0,
+    width: 150,
+    marginLeft: 20,
+
+  },
+  view_botao_cancelar: {
+    width: 150,
+    marginLeft: 10,
   }
 
 });
