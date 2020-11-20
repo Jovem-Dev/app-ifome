@@ -8,6 +8,10 @@ import Axios from 'axios';
 import { Container, BackButton, Title } from './styles';
 // import styles from './styles.css';
 import api from '../../services/api';
+import { TextInput } from 'react-native';
+import { StyleSheet } from 'react-native';
+import { View } from 'react-native';
+import { Button } from 'react-native';
 
 // const initialValue = {
 //   date: '',
@@ -23,9 +27,9 @@ const EnderecoInsert = () => {
   const [rua, setRua] = useState("");
   const [numero, setNumero] = useState("");
   const nome = "Gustavo Noronha"
-  
+
   const submitPurcharse = () => {
-    api.post('api/insert/endereco', { bairro: bairro, rua: rua, numero: numero, nome: nome }).then(() =>{
+    api.post('api/insert/endereco', { bairro: bairro, rua: rua, numero: numero, nome: nome }).then(() => {
       console.log('Sucesso ao cadastrar novo endereço')
     })
 
@@ -34,7 +38,37 @@ const EnderecoInsert = () => {
   return (
     <Container>
       <Title>Insira os dados do novo Endereço</Title>
-      <form>
+      <View style={{ flex: 1, flexDirection: 'column' }}>
+        <TextInput
+          style={styles.inputbairro}
+          onChange={(e) => {
+            setBairro(e.target.value)
+          }}
+          name="bairro"
+          value="Bairro"
+        />
+        <TextInput
+          style={styles.input_rua}
+          onChange={(e) => {
+            setRua(e.target.value)
+          }}
+          name="rua"
+          value="Rua"
+        />
+        <TextInput
+          style={styles.input_numero}
+          onChange={(e) => {
+            setNumero(e.target.value)
+          }}
+          name="numero"
+          value="Numero"
+        />
+        <Button title="Cadastrar" style={styles.button_cadastra} color="#F00000" onPress={submitPurcharse}>
+        </Button>
+      </View>
+
+
+      {/* <form>
         <div className="buy-form__group">
         
                   
@@ -56,7 +90,7 @@ const EnderecoInsert = () => {
             <button type="submit" onClick={submitPurcharse}>Salvar</button>
           </div>
         </div>
-      </form>
+      </form> */}
 
     </Container>
 
@@ -67,6 +101,46 @@ const EnderecoInsert = () => {
 
 export default EnderecoInsert;
 
+const styles = StyleSheet.create({
+  inputbairro: {
+    borderWidth: 1,
+    borderColor: "gray",
+    height: 50,
+    width: 350,
+    marginTop: 10,
+    marginLeft: 20,
+    borderColor: "white",
+    borderBottomColor: "gray"
+
+  },
+  input_rua: {
+    borderWidth: 1,
+    borderColor: "gray",
+    height: 50,
+    width: 350,
+    marginTop: 10,
+    marginLeft: 20,
+    borderColor: "white",
+    borderBottomColor: "gray"
+  },
+  input_numero: {
+    borderWidth: 1,
+    borderColor: "gray",
+    height: 50,
+    width: 350,
+    marginTop: 10,
+    marginLeft: 20,
+    borderColor: "white",
+    borderBottomColor: "gray",
+    marginBottom: 30
+  },
+  button_cadastra:{
+    width: 320,
+  }
+  
+
+
+});
 
 EnderecoInsert.navigationOptions = ({ navigation }) => ({
   headerBackTitleVisible: false,
