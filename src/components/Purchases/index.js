@@ -26,11 +26,15 @@ import {
 import api from '../../services/api';
 
 export default function Purchases() {
+  const nome = "Gustavo Noronha"
   const [purcharseList, setPurcharseList] = useState([])
 
-  useEffect(() =>{
-    api.get('api/get/anterior').then((response)=>{
-      setPurcharseList(response.data)
+  //https://api.ifome.net/api/get/anterior
+  useEffect(() => {
+    fetch(`https://api.ifome.net/api/pedido/anterior/${nome}`)
+    .then( res => res.json())
+    .then((data) =>{
+      setPurcharseList(data)
     })
   }, [])
  
