@@ -7,10 +7,12 @@ import api from '../../services/api';
 function Promotions({ navigation }) {
   
   const [promotions, setPromotions] = useState([])
-
-  useEffect(() =>{
-    api.get('api/promocoes/get').then((response)=>{
-      setPromotions(response.data)
+  // https://api.ifome.net/api/promocoes/get
+  useEffect(() => {
+    fetch("https://api.ifome.net/api/promocoes/get")
+    .then( res => res.json())
+    .then((data) =>{
+      setPromotions(data)
     })
   }, [])
 
