@@ -27,16 +27,17 @@ import {
 import api from '../../services/api';
 
 export default function PurchasesAnd({ navigation }) {
-  const [purcharseList, setPurcharseList] = useState([])
-
-  useEffect(() =>{
-      api.get("/api/get/pedido/").then((response)=>{
-        setPurcharseList(response.data)
-      })
-  }, []);
-  
   const nome = "Gustavo Noronha"
-  const EditPurcharse = (id) => {
+  const [purcharseList, setPurcharseList] = useState([])
+  useEffect(() => {
+    fetch(`https://api.ifome.net/api/pedido/andamento/${nome}`)
+    .then( res => res.json())
+    .then((data) =>{
+      setPurcharseList(data)
+    })
+  }, [])
+  
+   const EditPurcharse = (id) => {
     
     api.put(`api/put/${id}/${nome}`).then((err, result) =>{
       
