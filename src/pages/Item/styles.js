@@ -175,7 +175,7 @@ export const Option = styled.TouchableOpacity`
 
 export const MessageItem = styled.Text`
   color: #333;
-  font-size: 20px;
+  font-size: 18px;
   font-weight: bold;
   margin-left: 40px;
   margin-top: -40px;
