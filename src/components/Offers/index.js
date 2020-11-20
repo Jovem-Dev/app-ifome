@@ -30,8 +30,10 @@ function Offers({ navigation }) {
   const [offers, Setoffers] = useState([])
 
   useEffect(() => {
-    api.get('/api/get/').then((response) => {
-      Setoffers(response.data)
+    fetch("https://api.ifome.net/api/get")
+    .then( res => res.json())
+    .then((data) =>{
+      Setoffers(data)
     })
   }, [])
 
