@@ -8,10 +8,12 @@ import Axios from 'axios';
 export default function Suggestions() {
 
   const [suggestions, setSuggestions] = useState([])
-
-  useEffect(() =>{
-    api.get('api/sugestoes/get').then((response)=>{
-      setSuggestions(response.data)
+  //http://api.ifome.net/api/sugestoes/get
+  useEffect(() => {
+    fetch("http://api.ifome.net/api/sugestoes/get")
+    .then( res => res.json())
+    .then((data) =>{
+      setSuggestions(data)
     })
   }, [])
 
