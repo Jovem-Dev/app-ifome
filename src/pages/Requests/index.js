@@ -13,11 +13,14 @@ import PurchasesAnd from '../../components/PurcharseAnd';
 import api from '../../services/api';
 
 export default function Requests() {
+  const nome = "Gustavo Noronha"
   const [purcharseList, setPurcharseList] = useState([])
   
   useEffect(() =>{
-    api.get("/api/get/pedido/").then((response)=>{
-      setPurcharseList(response.data)
+    fetch(`https://api.ifome.net/api/pedido/andamento/${nome}`)
+    .then( res => res.json())
+    .then((data) =>{
+      setPurcharseList(data)
     })
   }, [])
 
