@@ -24,12 +24,21 @@ const PagamentoInsert = () => {
   
   
   const submitPurcharse = () => {
-    api.post('/api/insert/cartoes/pagarme', { numeroDoCartao: numeroDoCartao, nomeDoCartao: nomeDoCartao, expiracaoDoCartao: expiracaoDoCartao, codigoDoCartao: codigoDoCartao }).then(() =>{
-      console.log('Sucesso ao cadastrar novo cartão')
-    })
-    api.post('/api/insert/cartoes', { numeroDoCartao: numeroDoCartao, nomeDoCartao: nomeDoCartao, expiracaoDoCartao: expiracaoDoCartao, codigoDoCartao: codigoDoCartao }).then(() =>{
-      console.log('Sucesso ao cadastrar novo cartão')
-    })
+    const body = {
+      numeroDoCartao: numeroDoCartao, nomeDoCartao: nomeDoCartao, expiracaoDoCartao: expiracaoDoCartao, codigoDoCartao: codigoDoCartao
+    };
+    
+    fetch('http://api.ifome.net/api/insert/cartoes', {
+      method: 'post',
+      body: JSON.stringify(body),
+      headers: { 'Content-Type': 'application/json' }
+    });
+
+    fetch('http://api.ifome.net/api/insert/cartoes/pagarme', {
+      method: 'post',
+      body: JSON.stringify(body),
+      headers: { 'Content-Type': 'application/json' }
+    });
 
   };
 
