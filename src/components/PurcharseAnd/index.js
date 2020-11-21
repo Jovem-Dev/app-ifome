@@ -67,9 +67,7 @@ export default function PurchasesAnd({ navigation }) {
             </Evaluation>
             <Menu>
               
-              <MenuButton>
-                <MenuText>Detalhes</MenuText>
-              </MenuButton>
+            
               <MenuButton>
                 <MenuText onClick={() => {EditPurcharse(item.id)}}>Entregue</MenuText>
               </MenuButton>
