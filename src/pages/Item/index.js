@@ -6,6 +6,7 @@ import { StyleSheet, Text, View } from 'react-native';
 import { Button } from 'react-native';
 import Axios from 'axios';
 import api from '../../services/api';
+const fetch = require('node-fetch');
 import {
   Container,
   ItemImage,
@@ -47,22 +48,28 @@ export default function Item({ navigation }) {
   const [enderecos, setEnderecos] = useState([])
   const nome = "Gustavo Noronha"
   useEffect(() => {
-    api.get(`/api/get/cartoes/${nome}`).then((response) => {
-      setCartoes(response.data)
-    })
-    api.get(`/api/get/enderecos/${nome}`).then((response) => {
-      setEnderecos(response.data)
-    })
+    fetch(`http://api.ifome.net/api/get/cartoes/${nome}`)
+    .then( res => res.json())
+    .then((data) =>{
+      setCartoes(data)
+    })  
+    
+    fetch(`http://api.ifome.net/api/get/enderecos/${nome}`)
+    .then( res => res.json())
+    .then((data) =>{
+      setEnderecos(data)
+    })  
+    
   }, [])
 
   const cartoesMap = cartoes.map((item) => {
-    return item.card_holder_name + ":" + item.card_number  
+    return item.card_holder_name + ":" + item.card_number
 
   })
 
 
   const enderecosMap = enderecos.map((item) => {
-    return  item.bairro + " / "+ item.rua + " / "+ item.numero
+    return item.bairro + " / " + item.rua + " / " + item.numero
   })
 
   const item = navigation.getParam('item');
@@ -91,9 +98,7 @@ export default function Item({ navigation }) {
 
   ///// pedido
   const submitPurcharse = () => {
-
-
-    api.post('api/insert', {
+    const body = {
       url: url,
       data: data,
       restaurante: restaurante,
@@ -103,11 +108,15 @@ export default function Item({ navigation }) {
       endereco: endereco,
       pagamento_cartao: pagamento,
       mes: mes,
-      usuario: usuario,
+      usuario: usuario
+    };
 
-    }).catch((e) => {
-      console.log(e.Message)
-    })
+    const response =  fetch('http://api.ifome.net/api/insert', {
+      method: 'post',
+      body: JSON.stringify(body),
+      headers: { 'Content-Type': 'application/json' }
+    });
+   
     navigation.navigate('Requests')
     setModalVisible(!isModalVisible);
 
@@ -172,7 +181,7 @@ export default function Item({ navigation }) {
               </Option>
 
             </Options>
-            <View style={{ flexDirection: 'row', marginBottom: 20}}>
+            <View style={{ flexDirection: 'row', marginBottom: 20 }}>
               <View style={styles.view_botao_confirma}>
                 <Button color="#F00000" title="Confirmar" onPress={submitPurcharse} />
               </View>
