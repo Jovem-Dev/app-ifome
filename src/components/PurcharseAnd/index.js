@@ -63,14 +63,7 @@ export default function PurchasesAnd({ navigation }) {
               <Order>{item.pedido}</Order>
             </OrderDetails>
             <Evaluation>
-              <Message>Avaliação do pedido</Message>
-              <Star>
-                <MaterialIcons name="star" color="#ffcc33" size={20} />
-                <MaterialIcons name="star" color="#ffcc33" size={20} />
-                <MaterialIcons name="star" color="#ffcc33" size={20} />
-                <MaterialIcons name="star" color="#ffcc33" size={20} />
-                <MaterialIcons name="star" color="#ffcc33" size={20} />
-              </Star>
+              <Message>{item.status}</Message>
             </Evaluation>
             <Menu>
               
