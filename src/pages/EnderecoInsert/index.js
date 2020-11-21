@@ -29,10 +29,15 @@ const EnderecoInsert = () => {
   const nome = "Gustavo Noronha"
 
   const submitPurcharse = () => {
-    api.post('api/insert/endereco', { bairro: bairro, rua: rua, numero: numero, nome: nome }).then(() => {
-      console.log('Sucesso ao cadastrar novo endereço')
-    })
+    const body = {
+      bairro: bairro, rua: rua, numero: numero, nome: nome
+    };
 
+    const response = fetch('http://api.ifome.net/api/insert/endereco', {
+      method: 'post',
+      body: JSON.stringify(body),
+      headers: { 'Content-Type': 'application/json' }
+    });
   };
 
   return (
@@ -134,10 +139,10 @@ const styles = StyleSheet.create({
     borderBottomColor: "gray",
     marginBottom: 30
   },
-  button_cadastra:{
+  button_cadastra: {
     width: 320,
   }
-  
+
 
 
 });
