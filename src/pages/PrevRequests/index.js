@@ -15,10 +15,12 @@ import api from '../../services/api';
 
 export default function PrevRequests() {
   const [purcharseList, setPurcharseList] = useState([])
-  const usuario = "Gustavo Noronha"
+  const nome = "Gustavo Noronha"
   useEffect(() =>{
-    api.get(`api/get/anterior/${usuario}`).then((response)=>{
-      setPurcharseList(response.data)
+    fetch(`https://api.ifome.net/api/pedido/anterior/${nome}`)
+    .then( res => res.json())
+    .then((data) =>{
+      setPurcharseList(data)
     })
   }, [])
 
@@ -29,7 +31,7 @@ export default function PrevRequests() {
     ) : (
       <Wrapper>
         <Image />
-        <Warning>Nenhum pedido em andamento</Warning>
+        <Warning>Nenhum pedido anterior</Warning>
         <Message>
           <Suggestion>Que tal experimentar um lugar novo?</Suggestion>
           <Suggestion>É só selecionar Início</Suggestion>
