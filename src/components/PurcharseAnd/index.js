@@ -30,11 +30,11 @@ export default function PurchasesAnd({ navigation }) {
   const nome = "Gustavo Noronha"
   const [purcharseList, setPurcharseList] = useState([])
   useEffect(() => {
-    fetch(`https://api.ifome.net/api/pedido/andamento/${nome}`)
-    .then( res => res.json())
-    .then((data) =>{
-      setPurcharseList(data)
-    })
+    async function loadPurcharse(){
+      const response = await api.get(`/pedidos/andamentoPendenteUsuario/${nome}`)
+      setPurcharseList(response.data)
+    }
+    loadPurcharse();
   }, [])
   
    const EditPurcharse = (id) => {

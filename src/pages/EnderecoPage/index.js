@@ -26,9 +26,11 @@ const EnderecoPage = ({ navigation }) => {
   const [enderecos, setEnderecos] = useState([])
 
   useEffect(() => {
-    api.get(`/api/get/enderecos/${nome}`).then((response) => {
+    async function loadEnderecos(){
+      const response = await api.get(`/endereco/${nome}`)
       setEnderecos(response.data)
-    })
+    }
+    loadEnderecos();
   }, [])
   return (
     <Container>

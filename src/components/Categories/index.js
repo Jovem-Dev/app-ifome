@@ -17,13 +17,12 @@ export default function Categories({ navigation }) {
 
   const [categories, setCategories] = useState([])
   useEffect(() => {
-    fetch("http://api.ifome.net/api/categorias/get")
-    .then( res => res.json())
-    .then((data) =>{
-      setCategories(data)
-    })
+    async function loadCategories(){
+      const response = await api.get("/categoria")
+      setCategories(response.data)
+    }
+    loadCategories();
   }, [])
-
   return (
     <Container>
       <Header>

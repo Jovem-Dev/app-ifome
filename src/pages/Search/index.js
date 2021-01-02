@@ -18,10 +18,12 @@ import api from '../../services/api';
 export default function Search() {
   const [categories, setCategories] = useState([])
 
-  useEffect(() =>{
-    api.get('api/categorias/get').then((response)=>{
+  useEffect(() => {
+    async function loadCategories(){
+      const response = await api.get("/categoria")
       setCategories(response.data)
-    })
+    }
+    loadCategories();
   }, [])
 
   return (

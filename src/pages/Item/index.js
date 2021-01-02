@@ -48,17 +48,18 @@ export default function Item({ navigation }) {
   const [enderecos, setEnderecos] = useState([])
   const nome = "Gustavo Noronha"
   useEffect(() => {
-    fetch(`http://api.ifome.net/api/get/cartoes/${nome}`)
-    .then( res => res.json())
-    .then((data) =>{
-      setCartoes(data)
-    })  
-    
-    fetch(`http://api.ifome.net/api/get/enderecos/${nome}`)
-    .then( res => res.json())
-    .then((data) =>{
-      setEnderecos(data)
-    })  
+   
+    async function loadCartoes(){
+      const response = await api.get(`/cartoesNome/${nome}`)
+      setCartoes(response.data)
+    }
+    loadCartoes();
+
+    async function loadEnderecos(){
+      const response = await api.get(`/endereco/${nome}`)
+      setEnderecos(response.data)
+    }
+    loadEnderecos();
     
   }, [])
 
@@ -111,11 +112,11 @@ export default function Item({ navigation }) {
       usuario: usuario
     };
 
-    const response =  fetch('http://api.ifome.net/api/insert', {
-      method: 'post',
-      body: JSON.stringify(body),
-      headers: { 'Content-Type': 'application/json' }
-    });
+    const responsePedido = api.post("http://localhost:3333/pedidos", body);
+    if(responsePedido.status == 200 ){
+      navigation.navigate('Requests')
+    }
+    const responsePedidoPagarme = api.post("http://localhost:3333/pedidosPagarme", body)
    
     navigation.navigate('Requests')
     setModalVisible(!isModalVisible);

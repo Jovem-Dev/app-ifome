@@ -25,11 +25,11 @@ export default function Restaurants({ title, display }) {
   const [restaurants, setRestaurants] = useState([]);
   // https://api.ifome.net/api/restaurantes/get
   useEffect(() => {
-    fetch("https://api.ifome.net/api/restaurantes/get")
-    .then( res => res.json())
-    .then((data) =>{
-      setRestaurants(data)
-    })
+    async function loadRestaurants(){
+      const response = await api.get("/restaurante")
+      setRestaurants(response.data)
+    }
+    loadRestaurants();
   }, [])
   return (
     <Container>

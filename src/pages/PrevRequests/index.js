@@ -16,13 +16,14 @@ import api from '../../services/api';
 export default function PrevRequests() {
   const [purcharseList, setPurcharseList] = useState([])
   const nome = "Gustavo Noronha"
-  useEffect(() =>{
-    fetch(`https://api.ifome.net/api/pedido/anterior/${nome}`)
-    .then( res => res.json())
-    .then((data) =>{
-      setPurcharseList(data)
-    })
+  useEffect(() => {
+    async function loadPurcharse(){
+      const response = await api.get(`/pedidos/entregueUsuario/${nome}`)
+      setPurcharseList(response.data)
+    }
+    loadPurcharse();
   }, [])
+ 
 
   return (
     <Container>

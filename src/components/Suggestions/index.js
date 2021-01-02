@@ -10,11 +10,11 @@ export default function Suggestions() {
   const [suggestions, setSuggestions] = useState([])
   //http://api.ifome.net/api/sugestoes/get
   useEffect(() => {
-    fetch("http://api.ifome.net/api/sugestoes/get")
-    .then( res => res.json())
-    .then((data) =>{
-      setSuggestions(data)
-    })
+    async function loadSugestoes(){
+      const response = await api.get("/sugestoes")
+      setSuggestions(response.data)
+    }
+    loadSugestoes();
   }, [])
 
   return (

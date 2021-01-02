@@ -9,11 +9,11 @@ function Promotions({ navigation }) {
   const [promotions, setPromotions] = useState([])
   // https://api.ifome.net/api/promocoes/get
   useEffect(() => {
-    fetch("https://api.ifome.net/api/promocoes/get")
-    .then( res => res.json())
-    .then((data) =>{
-      setPromotions(data)
-    })
+    async function loadPromotions(){
+      const response = await api.get("/promocoes")
+      setPromotions(response.data)
+    }
+    loadPromotions();
   }, [])
 
   function handleNavigate(promo) {

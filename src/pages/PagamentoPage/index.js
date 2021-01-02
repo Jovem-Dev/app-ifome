@@ -24,9 +24,11 @@ const PagamentoPage = ({ navigation }) => {
   const [cartoes, setCartoes] = useState([])
   const nome = "Gustavo Noronha"
   useEffect(() => {
-    api.get(`/api/get/cartoes/${nome}`).then((response) => {
+    async function loadCartoes(){
+      const response = await api.get(`/cartoesNome/${nome}`)
       setCartoes(response.data)
-    })
+    }
+    loadCartoes();
   }, [])
   return (
     <Container>

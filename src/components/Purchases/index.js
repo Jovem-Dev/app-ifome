@@ -31,11 +31,11 @@ export default function Purchases() {
 
   //https://api.ifome.net/api/get/anterior
   useEffect(() => {
-    fetch(`https://api.ifome.net/api/pedido/anterior/${nome}`)
-    .then( res => res.json())
-    .then((data) =>{
-      setPurcharseList(data)
-    })
+    async function loadPurcharse(){
+      const response = await api.get(`/pedidos/entregueUsuario/${nome}`)
+      setPurcharseList(response.data)
+    }
+    loadPurcharse();
   }, [])
  
   const deletePurcharse = (id)=>{
