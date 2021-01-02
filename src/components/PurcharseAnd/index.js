@@ -37,12 +37,12 @@ export default function PurchasesAnd({ navigation }) {
     loadPurcharse();
   }, [])
   
-   const EditPurcharse = (id) => {
-    
-    api.put(`api/put/${id}/${nome}`).then((err, result) =>{
-      
-    })
-
+  async function EditPurcharse(id){
+    const body = {
+      status: "Entregue",
+      status_cor: "success"
+    };
+    const response = await api.put(`/pedidos/${id}`, body)
   };
 
   return (

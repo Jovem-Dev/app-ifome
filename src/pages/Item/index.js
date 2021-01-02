@@ -100,10 +100,12 @@ export default function Item({ navigation }) {
   ///// pedido
   const submitPurcharse = () => {
     const body = {
-      url: url,
       data: data,
       restaurante: restaurante,
+      url: url,
       numero: numero,
+      status: 'Pendente',
+      status_cor: 'danger',
       pedido: pedido,
       valor: valor,
       endereco: endereco,

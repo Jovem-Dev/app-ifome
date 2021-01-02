@@ -30,14 +30,10 @@ const EnderecoInsert = () => {
 
   const submitPurcharse = () => {
     const body = {
-      bairro: bairro, rua: rua, numero: numero, nome: nome
+      bairro: bairro, rua: rua, numero: numero, usuario: nome
     };
 
-    const response = fetch('http://api.ifome.net/api/insert/endereco', {
-      method: 'post',
-      body: JSON.stringify(body),
-      headers: { 'Content-Type': 'application/json' }
-    });
+    const responseEndereco = api.post("http://localhost:3333/endereco", body);
   };
 
   return (

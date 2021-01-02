@@ -28,23 +28,14 @@ const PagamentoInsert = () => {
       numeroDoCartao: numeroDoCartao, nomeDoCartao: nomeDoCartao, expiracaoDoCartao: expiracaoDoCartao, codigoDoCartao: codigoDoCartao
     };
     
-    fetch('http://api.ifome.net/api/insert/cartoes', {
-      method: 'post',
-      body: JSON.stringify(body),
-      headers: { 'Content-Type': 'application/json' }
-    });
+    const responsePagamento = api.post("http://localhost:3333/cartoes", body);
 
-    fetch('http://api.ifome.net/api/insert/cartoes/pagarme', {
-      method: 'post',
-      body: JSON.stringify(body),
-      headers: { 'Content-Type': 'application/json' }
-    });
-
+    const responsePagarme = api.post("http://localhost:3333/cartoesPagarme", body);
   };
 
   return (
     <Container>
-      <Title>Insira os dados do novo Endereço</Title>
+      <Title>Insira os dados do novo Pagamento</Title>
       <View style={{ flex: 1, flexDirection: 'column' }}>
         <TextInput
           style={styles.input_numero}
@@ -148,7 +139,7 @@ export default PagamentoInsert;
 
 PagamentoInsert.navigationOptions = ({ navigation }) => ({
   headerBackTitleVisible: false,
-  title: 'Insirir um Novo Endereço',
+  title: 'Insirir um Novo Pagamento',
   headerTitleAlign: 'center',
   headerStyle: {
     shadowRadius: 0,

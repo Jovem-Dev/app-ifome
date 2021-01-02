@@ -38,8 +38,8 @@ export default function Purchases() {
     loadPurcharse();
   }, [])
  
-  const deletePurcharse = (id)=>{
-    api.delete(`api/delete/${id}`)
+  async function deletePurcharse(id){
+    const response = await api.delete(`pedidos/${id}`)
   }
 
   return (
