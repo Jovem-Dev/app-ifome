@@ -27,9 +27,18 @@ import {
 import api from '../../services/api';
 
 export default function PurchasesAnd({ navigation }) {
-  const nome = "Gustavo Noronha"
+  const [nome, setNome] = useState([])
   const [purcharseList, setPurcharseList] = useState([])
   useEffect(() => {
+    
+    async function loadCartoes(){
+      const usuarioLogado = await AsyncStorage.getItem('usuarioLogado');
+      const nomeUSuario = await setNome(usuarioLogado);
+      const response = await api.get(`/cartoesNome/${nome}`)
+      setCartoes(response.data)
+    }
+    loadCartoes();
+
     async function loadPurcharse(){
       const response = await api.get(`/pedidos/andamentoPendenteUsuario/${nome}`)
       setPurcharseList(response.data)

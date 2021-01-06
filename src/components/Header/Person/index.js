@@ -15,12 +15,16 @@ import {
 
 import api from '../../../services/api';
 import fotoDePerfil from '../../../assets/fotoPerfil.jpg';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 function Person() {
   const [profile, setProfile] = useState({});
+  const [nome, setNome] = useState([])
 
   useEffect(() => {
     async function loadProfile() {
+      const usuarioLogado = await AsyncStorage.getItem('usuarioLogado');
+      const nomeUSuario = await setNome(usuarioLogado);
       const response = await api.get('profile');
       setProfile(response.data);
     }
@@ -32,7 +36,7 @@ function Person() {
       <ProfileButton>
         <Avatar source={fotoDePerfil} />
         <Info>
-          <Name>Gustavo Noronha</Name>
+          <Name>{nome}</Name>
           <Message>Editar perfil</Message>
         </Info>
         <MaterialIcons name="keyboard-arrow-right" size={20} color="#999999" />

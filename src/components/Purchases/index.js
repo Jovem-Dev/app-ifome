@@ -24,14 +24,17 @@ import {
 } from './styles';
 
 import api from '../../services/api';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default function Purchases() {
-  const nome = "Gustavo Noronha"
+  const [nome, setNome] = useState([])
   const [purcharseList, setPurcharseList] = useState([])
 
   //https://api.ifome.net/api/get/anterior
   useEffect(() => {
     async function loadPurcharse(){
+      const usuarioLogado = await AsyncStorage.getItem('usuarioLogado');
+      const nomeUSuario = await setNome(usuarioLogado);
       const response = await api.get(`/pedidos/entregueUsuario/${nome}`)
       setPurcharseList(response.data)
     }
