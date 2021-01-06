@@ -12,12 +12,15 @@ import {
 import Purchases from '../../components/Purchases';
 import Axios from 'axios';
 import api from '../../services/api';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default function PrevRequests() {
   const [purcharseList, setPurcharseList] = useState([])
-  const nome = "Gustavo Noronha"
+  const [nome, setNome] = useState([])
   useEffect(() => {
     async function loadPurcharse(){
+      const usuarioLogado = await AsyncStorage.getItem('usuarioLogado');
+      const nomeUSuario = await setNome(usuarioLogado);
       const response = await api.get(`/pedidos/entregueUsuario/${nome}`)
       setPurcharseList(response.data)
     }

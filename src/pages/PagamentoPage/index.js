@@ -19,12 +19,15 @@ import {
   Delivery
 } from './styles';
 import api from '../../services/api';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const PagamentoPage = ({ navigation }) => {
   const [cartoes, setCartoes] = useState([])
-  const nome = "Gustavo Noronha"
+  const [nome, setNome] = useState([])
   useEffect(() => {
     async function loadCartoes(){
+      const usuarioLogado = await AsyncStorage.getItem('usuarioLogado');
+      const nomeUSuario = await setNome(usuarioLogado);
       const response = await api.get(`/cartoesNome/${nome}`)
       setCartoes(response.data)
     }

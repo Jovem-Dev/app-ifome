@@ -20,13 +20,16 @@ import {
   
 } from './styles';
 import api from '../../services/api';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const EnderecoPage = ({ navigation }) => {
-  const nome = "Gustavo Noronha"
+  const [nome, setNome] = useState([])
   const [enderecos, setEnderecos] = useState([])
 
   useEffect(() => {
     async function loadEnderecos(){
+      const usuarioLogado = await AsyncStorage.getItem('usuarioLogado');
+      const nomeUSuario = await setNome(usuarioLogado);
       const response = await api.get(`/endereco/${nome}`)
       setEnderecos(response.data)
     }

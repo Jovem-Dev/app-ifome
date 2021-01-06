@@ -26,9 +26,11 @@ const EnderecoInsert = () => {
   const [bairro, setBairro] = useState("");
   const [rua, setRua] = useState("");
   const [numero, setNumero] = useState("");
-  const nome = "Gustavo Noronha"
+  const [nome, setNome] = useState([])
 
-  const submitPurcharse = () => {
+  const submitPurcharse = async () => {
+    const usuarioLogado = await AsyncStorage.getItem('usuarioLogado');
+    const nomeUSuario = await setNome(usuarioLogado);
     const body = {
       bairro: bairro, rua: rua, numero: numero, usuario: nome
     };

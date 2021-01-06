@@ -12,18 +12,21 @@ import { StyleSheet } from 'react-native';
 import { View } from 'react-native';
 import { TextInput } from 'react-native';
 import { Button } from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 
 // CAMPOS DO FORM: ID, DATA, NOME DO RESAURANTE, URL DA IMAGEM DO RESTAURANTE, NUMERO DE PEDIDO E PEDIDO
 const PagamentoInsert = () => {
   
   const [numeroDoCartao, setNumeroDoCartao] = useState("");
-  const nomeDoCartao = "Gustavo Noronha"
+  const [nomeDoCartao, setNome] = useState([])
   const [expiracaoDoCartao, setExpiracaoDoCartao] = useState("");
   const [codigoDoCartao, setCodigoDoCartaoo] = useState("");
   
   
-  const submitPurcharse = () => {
+  const submitPurcharse = async () => {
+    const usuarioLogado = await AsyncStorage.getItem('usuarioLogado');
+    const nomeUSuario = await setNome(usuarioLogado);
     const body = {
       numeroDoCartao: numeroDoCartao, nomeDoCartao: nomeDoCartao, expiracaoDoCartao: expiracaoDoCartao, codigoDoCartao: codigoDoCartao
     };

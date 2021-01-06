@@ -11,13 +11,16 @@ import {
 } from './styles';
 import PurchasesAnd from '../../components/PurcharseAnd';
 import api from '../../services/api';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default function Requests() {
-  const nome = "Gustavo Noronha"
+  const [nome, setNome] = useState([])
   const [purcharseList, setPurcharseList] = useState([])
   
   useEffect(() => {
     async function loadPurcharse(){
+      const usuarioLogado = await AsyncStorage.getItem('usuarioLogado');
+      const nomeUSuario = await setNome(usuarioLogado);
       const response = await api.get(`/pedidos/andamentoPendenteUsuario/${nome}`)
       setPurcharseList(response.data)
     }

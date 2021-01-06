@@ -40,26 +40,37 @@ import {
 
 } from './styles';
 import { Alert, Picker } from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
-export default function Item({ navigation }) {
+ export default function Item({ navigation }) {
   const [selectedValueCartao, setSelectedValueCartao] = useState([]);
   const [selectedValueEndereco, setSelectedValueEndereco] = useState([]);
   const [cartoes, setCartoes] = useState([])
   const [enderecos, setEnderecos] = useState([])
-  const nome = "Gustavo Noronha"
+  const [nome, setNome] = useState([])
+  
+  //  "Gustavo Noronha"
   useEffect(() => {
-   
-    async function loadCartoes(){
-      const response = await api.get(`/cartoesNome/${nome}`)
-      setCartoes(response.data)
-    }
-    loadCartoes();
 
-    async function loadEnderecos(){
-      const response = await api.get(`/endereco/${nome}`)
-      setEnderecos(response.data)
+    async function cartoesEndereco(){
+      const usuarioLogado = await AsyncStorage.getItem('usuarioLogado');
+      const nomeUSuario = await setNome(usuarioLogado);
+
+      async function loadCartoes(){
+        const response = await api.get(`/cartoesNome/${nome}`)
+        setCartoes(response.data)
+      }
+      loadCartoes();
+  
+      async function loadEnderecos(){
+        const response = await api.get(`/endereco/${nome}`)
+        setEnderecos(response.data)
+      }
+      loadEnderecos();
     }
-    loadEnderecos();
+    
+    cartoesEndereco()
+    
     
   }, [])
 
@@ -114,7 +125,7 @@ export default function Item({ navigation }) {
       usuario: usuario
     };
 
-    const responsePedido = api.post("http://localhost:3333/pedidos", body);
+    const responsePedido = api.post("/pedidos", body);
     if(responsePedido.status == 200 ){
       navigation.navigate('Requests')
     }
