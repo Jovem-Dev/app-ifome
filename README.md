@@ -1,9 +1,5 @@
 <!-- AUTO-GENERATED-CONTENT:START (STARTER) -->
-<p align="center">
-  <a>
-    <img alt="Ifood" src="https://www.jovemdev.com.br/wp-content/uploads/elementor/thumbs/clone-ifood2-oxnisvnyaodqkgq4l31gvacld97c76uf4rl8jmulem.png" width="300" />
-  </a>
-</p>
+
 <h1 align="center">
   Ifood Clone
 </h1>
